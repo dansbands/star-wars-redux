@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { simpleAction } from './actions/simpleAction'
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+  render() {
+    console.log('App Props', this.props);
+    
+    const { simpleAction } = this.props;
+    return (
+      <div className="App">
+        <header className="App-header">
+          <pre>
+            { 
+              JSON.stringify(this.props)
+            }
+          </pre>
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <button onClick={simpleAction}>
+            Test Redux Action
+          </button>
+        </header>
+      </div>
+    );
+    
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  console.log('MSTP', state);
+  return state
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators( { simpleAction }, dispatch )
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
