@@ -1,5 +1,6 @@
 import React from 'react'
 import characters from '../utils/characters.json'
+import { Input, FormGroup } from 'reactstrap'
 
 class PersonPicker extends React.Component {
   state = {
@@ -35,16 +36,19 @@ class PersonPicker extends React.Component {
   render() {
     // console.log('PersonPicker', this.state);
     return (
-      <select
-        className="form-control"
-        onChange={this.handleChange}
-        defaultValue="Choose a character"
-      >
+      <FormGroup>
+        <Input 
+          type="select"
+          name="select"
+          onChange={this.handleChange}
+          defaultValue="Choose a character"
+        >
 
         <option value="Choose a character" disabled>Choose a Character...</option>
         {this.renderDropdownItems()}
 
-      </select>
+        </Input>
+      </FormGroup>
     )
   }
 }
