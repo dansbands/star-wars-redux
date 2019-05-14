@@ -15,18 +15,31 @@ export const getPerson = person => dispatch => {
 	.then(res => res.json())
 	.then(data => {
 		console.log('>>>>>>>>getPersonSuccess', data.films);
-			dispatch(getPersonSuccess(data))
+			dispatch(getFilms(data))
 		})
 	// 	.catch(err => ({
 	// 		dispatch(getPersonFailure(err.message))
 	// 	})	
 }
 
-export const getFilms = () => dispatch => {
+export const getFilms = data => dispatch => {
+	
+	let newFilms = []
+	if (data.films) {
+		data.films.map(f => {
+			return fetch(f)
+			.then(res => res.json())
+			.then(info => newFilms.push(info))
+		})
+		console.log('!!!!! getFilms', newFilms);
+	}
+
 	dispatch({
-		type: 'GET_FILM',
-		payload: 'film'
+		type: 'GET_FILMS',
+		payload: newFilms
 	})
+
+	dispatch(getPersonSuccess(data))
 }
 
 export const getPersonStarted = () => dispatch => {

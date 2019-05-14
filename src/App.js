@@ -33,7 +33,7 @@ class App extends React.Component {
 
   handleChange = person => {
     this.props.getPerson(person)
-      .then(() => this.getFilms(this.props.person.films))
+      // .then(() => this.getFilms(this.props.person.films))
     this.showLoader()
     console.log('handleChange', this.props);
     
@@ -168,7 +168,8 @@ const mapStateToProps = state => {
   console.log('MSTP', state);
   return {
     loading: state.simpleReducer.loading,
-    person: state.simpleReducer.person
+    person: state.simpleReducer.person,
+    films: state.simpleReducer.films
   }
 }
 
