@@ -7,10 +7,12 @@ export const getPerson = person => {
 		})
 		.then(res => res.json())
 		.then(data => {
-			// console.log('>>>>>>>>getPersonSuccess', data.films);
-				dispatch(getFilms(data))
-			})
-		.catch(err => console.log(err))	
+			dispatch(getFilms(data))
+		})
+		// .catch(err => {
+		// 	getPersonFailure(err)
+		// 	console.log(err)
+		// })	
 	} 
 }
 
@@ -23,19 +25,18 @@ export const getFilms = data => {
 				const info = await res.json();
 				return newFilms.push(info);
 			})
-			// console.log('!!!!! getFilms', newFilms);
 		}
-	
+		
 		dispatch({
 			type: 'GET_FILMS',
 			payload: newFilms
 		})
-	
+		
 		dispatch(getPersonSuccess(data))
 	} 
 }
 
-export const getPersonStarted = () => dispatch => {
+export const getPersonStarted = () => dispatch => {	
 	dispatch({
 		type: 'GET_PERSON_STARTED'
 	})
@@ -48,9 +49,10 @@ export const getPersonSuccess = (data) => dispatch => {
 	})
 }
 
-export const getPersonFailure = () => dispatch => {
-	dispatch({
-		type: 'GET_PERSON_FAILURE',
-		payload: false
-	})
-}
+// export const getPersonFailure = err => dispatch => {
+// 	console.log('getPersonFailure');
+// 	dispatch({
+// 		type: 'GET_PERSON_FAILURE',
+// 		payload: err
+// 	})
+// }

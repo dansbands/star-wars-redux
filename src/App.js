@@ -15,9 +15,7 @@ import logo2 from './img/logo2.jpg'
 
 class App extends React.Component {
   state = {
-    person: {
-      name: "",
-    },
+    person: '',
     currentFilm: {},
     loading: false,
     row: false,
@@ -25,8 +23,7 @@ class App extends React.Component {
   }
 
   handleChange = person => {
-    console.log('handleChange', person);
-    this.setState({ person: { ...this.state.person, name: person.name } })
+    this.setState({ person: person.name })
     this.props.getPerson(person)
     this.showLoader()
   }
@@ -75,8 +72,8 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('state', this.state);
-    console.log('props', this.props);
+    // console.log('state', this.state);
+    // console.log('props', this.props);
 
     let rowClass = this.state.row ? "active" : "inactive"
     let gridClass = this.state.row ? "inactive" : "active"
@@ -100,8 +97,8 @@ class App extends React.Component {
           </div> : null
         }
 
-        {this.props.person.name && !this.state.loading &&
-          <h3 className="subheader-caption">Films that {this.props.person.name} appears in:</h3>
+        {this.state.person && !this.state.loading &&
+          <h3 className="subheader-caption">Films that {this.state.person} appears in:</h3>
         }
 
         {this.props.films && 
@@ -137,7 +134,6 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // console.log('MSTP', state);
   return {
     loading: state.personReducer.loading,
     person: state.personReducer.person,
