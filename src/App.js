@@ -74,10 +74,10 @@ class App extends React.Component {
     return films
   }
 
-  renderFilms = () => {
+  renderFilms = (films) => {
     let newFilms =
-      this.state.films.length ?
-        this.state.films.map(f => {
+      films.length ?
+        films.map(f => {
           return <FilmCard
             onClick={() => this.pickFilm(f)}
             film={f}
@@ -136,14 +136,17 @@ class App extends React.Component {
         {this.state.person.name && !this.state.loading &&
           <h3 className="subheader-caption">Films that {this.state.person.name} appears in:</h3>}
 
-        {this.state.films && !this.state.loading && this.state.data.films && this.state.data.films.length === this.state.films.length &&
+        {/* {this.state.films && !this.state.loading && this.state.data.films && this.state.data.films.length === this.state.films.length &&
           <div className="movies">
             {this.renderFilms()}
           </div>
+        } */}
+        {this.props.films && 
+          this.renderFilms(this.props.films)
         }
 
-        {this.state.person.name && !this.state.loading && !this.state.films.length &&
-          'No films available'}
+        {/* {this.state.person.name && !this.state.loading && !this.state.films.length &&
+          'No films available'} */}
 
         {!this.state.person.name &&
           <div className="welcome">
