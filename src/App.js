@@ -8,10 +8,6 @@ import './css/App.css';
 import PersonPicker from './components/PersonPicker'
 import FilmCard from './components/FilmCard'
 import FilmModal from './components/FilmModal'
-
-// import { getPerson, getFilm } from './utils/index.js'
-// import { getFilm } from './utils/index.js'
-
 import ViewGridIcon from 'mdi-react/ViewGridIcon';
 import FormatListBulletedIcon from 'mdi-react/FormatListBulletedIcon';
 import loader from './img/bb8.gif'
@@ -21,10 +17,7 @@ class App extends React.Component {
   state = {
     person: {
       name: "",
-      url: ""
     },
-    data: [],
-    films: [],
     currentFilm: {},
     loading: false,
     row: false,
@@ -32,41 +25,14 @@ class App extends React.Component {
   }
 
   handleChange = person => {
+    console.log('handleChange', person);
+    this.setState({ person: { ...this.state.person, name: person.name } })
     this.props.getPerson(person)
-      // .then(() => this.getFilms(this.props.person.films))
     this.showLoader()
-    // console.log('handleChange', this.props);
-    
-    // this.setState({ person, films: [] }, () => {
-      
-      
-      
-      
-    //   // getPerson(this.state.person)
-    //   //   .then(data => {
-    //   //     this.getFilms(data.films)
-    //   //     this.setState({ data })
-    //   //   })
-    // })
   }
-
-  // getFilms = (films) => {
-  //   let newFilms = []
-  //   if (films) {
-  //     films.map(f => {
-  //       return getFilm(f)
-  //         .then(data => newFilms.push(data))
-  //         .then(films => this.setState({ films: this.sortFilms(newFilms) }))
-  //     })
-  //   } else {
-  //     this.setState({ films: [] })
-  //   }
-  // }
 
   sortFilms = films => {
     films = films.sort((a, b) => {
-      // console.log('sort a', a.release_date);
-      // console.log('sort b', b.release_date);
       if (a.release_date < b.release_date) return -1;
       if (a.release_date > b.release_date) return 1;
       return 0;
@@ -112,10 +78,9 @@ class App extends React.Component {
     console.log('state', this.state);
     console.log('props', this.props);
 
-    // const { person } = this.props.simpleReducer
-
     let rowClass = this.state.row ? "active" : "inactive"
     let gridClass = this.state.row ? "inactive" : "active"
+
     return (
       <div className="App">
         <header className="App-header">
@@ -135,21 +100,16 @@ class App extends React.Component {
           </div> : null
         }
 
-        {this.state.person.name && !this.state.loading &&
-          <h3 className="subheader-caption">Films that {this.state.person.name} appears in:</h3>}
+        {this.props.person.name && !this.state.loading &&
+          <h3 className="subheader-caption">Films that {this.props.person.name} appears in:</h3>
+        }
 
-        {/* {this.state.films && !this.state.loading && this.state.data.films && this.state.data.films.length === this.state.films.length &&
-          <div className="movies">
-            {this.renderFilms()}
-          </div>
-        } */}
         {this.props.films && 
           <div className="movies">
             {this.renderFilms(this.props.films)}
           </div>
         }
 
-        {/* {this.props.person && this.props.person.name && !this.props.loading  */}
         {!this.props.loading && 
         this.props.person && 
         this.props.person.name && 

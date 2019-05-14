@@ -37,8 +37,7 @@ export const getFilms = data => {
 
 export const getPersonStarted = () => dispatch => {
 	dispatch({
-		type: 'GET_PERSON_STARTED',
-		payload: true
+		type: 'GET_PERSON_STARTED'
 	})
 }
 

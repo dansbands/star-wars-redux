@@ -5,9 +5,11 @@ export default (state = { loading: false, person: false }, action) => {
 
   switch (action.type) {
     case 'GET_PERSON_STARTED':
-      return {
-        loading: action.payload
-      }
+      newState = {
+        ...state,
+        loading: true
+      } 
+      return newState
     case 'GET_FILMS':
       newState = {
         ...state,
