@@ -2,13 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { simpleAction } from './actions/simpleAction'
+import { simpleAction, getPerson } from './actions/simpleAction'
 
 import './css/App.css';
 import PersonPicker from './components/PersonPicker'
 import FilmCard from './components/FilmCard'
 import FilmModal from './components/FilmModal'
-import { getPerson, getFilm } from './utils/index.js'
+
+// import { getPerson, getFilm } from './utils/index.js'
+import { getFilm } from './utils/index.js'
+
 import ViewGridIcon from 'mdi-react/ViewGridIcon';
 import FormatListBulletedIcon from 'mdi-react/FormatListBulletedIcon';
 import loader from './img/bb8.gif'
@@ -29,13 +32,21 @@ class App extends React.Component {
   }
 
   handleChange = person => {
+    this.props.getPerson(person)
+      .then(() => this.getFilms(this.props.person.films))
     this.showLoader()
+    console.log('handleChange', this.props);
+    
     this.setState({ person, films: [] }, () => {
-      getPerson(this.state.person)
-        .then(data => {
-          this.getFilms(data.films)
-          this.setState({ data })
-        })
+      
+      
+      
+      
+      // getPerson(this.state.person)
+      //   .then(data => {
+      //     this.getFilms(data.films)
+      //     this.setState({ data })
+      //   })
     })
   }
 
@@ -97,6 +108,10 @@ class App extends React.Component {
 
   render() {
     // console.log('state', this.state);
+    console.log('props', this.props);
+
+    // const { person } = this.props.simpleReducer
+
     let rowClass = this.state.row ? "active" : "inactive"
     let gridClass = this.state.row ? "inactive" : "active"
     return (
@@ -111,8 +126,8 @@ class App extends React.Component {
             <FormatListBulletedIcon onClick={this.toggleRow} className={rowClass} />
           </div>
         </header>
-
-        {this.state.loading &&
+        {/*  || */}
+        {this.props.loading || this.state.loading &&
           <div className="movies">
             <img src={loader} width="200px" alt="loading" className="loader" />
           </div>
@@ -151,11 +166,14 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   console.log('MSTP', state);
-  return state
+  return {
+    loading: state.simpleReducer.loading,
+    person: state.simpleReducer.person
+  }
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators( { simpleAction }, dispatch )
+  return bindActionCreators( { simpleAction, getPerson }, dispatch )
 }
 
 
