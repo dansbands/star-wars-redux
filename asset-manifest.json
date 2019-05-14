@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/star-wars-redux/static/css/main.0a755bce.chunk.css",
-    "main.js": "/star-wars-redux/static/js/main.5584f9df.chunk.js",
-    "main.js.map": "/star-wars-redux/static/js/main.5584f9df.chunk.js.map",
+    "main.js": "/star-wars-redux/static/js/main.6c56592c.chunk.js",
+    "main.js.map": "/star-wars-redux/static/js/main.6c56592c.chunk.js.map",
     "runtime~main.js": "/star-wars-redux/static/js/runtime~main.57d0ab89.js",
     "runtime~main.js.map": "/star-wars-redux/static/js/runtime~main.57d0ab89.js.map",
     "static/css/2.266e55a5.chunk.css": "/star-wars-redux/static/css/2.266e55a5.chunk.css",
     "static/js/2.a1b75fdb.chunk.js": "/star-wars-redux/static/js/2.a1b75fdb.chunk.js",
     "static/js/2.a1b75fdb.chunk.js.map": "/star-wars-redux/static/js/2.a1b75fdb.chunk.js.map",
     "index.html": "/star-wars-redux/index.html",
-    "precache-manifest.071cfb88df93f53cbd3833ed820fd3df.js": "/star-wars-redux/precache-manifest.071cfb88df93f53cbd3833ed820fd3df.js",
+    "precache-manifest.acaa7351f18d4bb25f966ba4731cdb4d.js": "/star-wars-redux/precache-manifest.acaa7351f18d4bb25f966ba4731cdb4d.js",
     "service-worker.js": "/star-wars-redux/service-worker.js",
     "static/css/2.266e55a5.chunk.css.map": "/star-wars-redux/static/css/2.266e55a5.chunk.css.map",
     "static/css/main.0a755bce.chunk.css.map": "/star-wars-redux/static/css/main.0a755bce.chunk.css.map",
