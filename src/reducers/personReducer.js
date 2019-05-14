@@ -1,13 +1,9 @@
-export default (state = { loading: false, person: [] }, action) => {
-  console.log('SimpleReducer', action);
+export default (state = { loading: false, person: false }, action) => {
+  // console.log('PersonReducer', action);
 
   let newState;
 
   switch (action.type) {
-    case 'SIMPLE_ACTION':
-      return {
-        result: action.payload
-      }
     case 'GET_PERSON_STARTED':
       return {
         loading: action.payload

@@ -1,10 +1,3 @@
-export const simpleAction = () => dispatch => {
-	dispatch({
-		type: 'SIMPLE_ACTION',
-		payload: 'result_of_simple_action'
-	})
-}
-
 export const getPerson = person => {
 	return dispatch => {
 		dispatch(getPersonStarted());
@@ -14,7 +7,7 @@ export const getPerson = person => {
 		})
 		.then(res => res.json())
 		.then(data => {
-			console.log('>>>>>>>>getPersonSuccess', data.films);
+			// console.log('>>>>>>>>getPersonSuccess', data.films);
 				dispatch(getFilms(data))
 			})
 		.catch(err => console.log(err))	
@@ -30,7 +23,7 @@ export const getFilms = data => {
 				const info = await res.json();
 				return newFilms.push(info);
 			})
-			console.log('!!!!! getFilms', newFilms);
+			// console.log('!!!!! getFilms', newFilms);
 		}
 	
 		dispatch({

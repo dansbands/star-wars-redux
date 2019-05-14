@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { simpleAction, getPerson } from './actions/simpleAction'
+import { getPerson } from './actions/personAction'
 
 import './css/App.css';
 import PersonPicker from './components/PersonPicker'
@@ -10,7 +10,7 @@ import FilmCard from './components/FilmCard'
 import FilmModal from './components/FilmModal'
 
 // import { getPerson, getFilm } from './utils/index.js'
-import { getFilm } from './utils/index.js'
+// import { getFilm } from './utils/index.js'
 
 import ViewGridIcon from 'mdi-react/ViewGridIcon';
 import FormatListBulletedIcon from 'mdi-react/FormatListBulletedIcon';
@@ -35,33 +35,33 @@ class App extends React.Component {
     this.props.getPerson(person)
       // .then(() => this.getFilms(this.props.person.films))
     this.showLoader()
-    console.log('handleChange', this.props);
+    // console.log('handleChange', this.props);
     
-    this.setState({ person, films: [] }, () => {
+    // this.setState({ person, films: [] }, () => {
       
       
       
       
-      // getPerson(this.state.person)
-      //   .then(data => {
-      //     this.getFilms(data.films)
-      //     this.setState({ data })
-      //   })
-    })
+    //   // getPerson(this.state.person)
+    //   //   .then(data => {
+    //   //     this.getFilms(data.films)
+    //   //     this.setState({ data })
+    //   //   })
+    // })
   }
 
-  getFilms = (films) => {
-    let newFilms = []
-    if (films) {
-      films.map(f => {
-        return getFilm(f)
-          .then(data => newFilms.push(data))
-          .then(films => this.setState({ films: this.sortFilms(newFilms) }))
-      })
-    } else {
-      this.setState({ films: [] })
-    }
-  }
+  // getFilms = (films) => {
+  //   let newFilms = []
+  //   if (films) {
+  //     films.map(f => {
+  //       return getFilm(f)
+  //         .then(data => newFilms.push(data))
+  //         .then(films => this.setState({ films: this.sortFilms(newFilms) }))
+  //     })
+  //   } else {
+  //     this.setState({ films: [] })
+  //   }
+  // }
 
   sortFilms = films => {
     films = films.sort((a, b) => {
@@ -77,7 +77,7 @@ class App extends React.Component {
   renderFilms = (films) => {
     let newFilms =
       films.length ?
-        films.map(f => {
+        this.sortFilms(films).map(f => {
           return <FilmCard
             onClick={() => this.pickFilm(f)}
             film={f}
@@ -128,7 +128,7 @@ class App extends React.Component {
             <FormatListBulletedIcon onClick={this.toggleRow} className={rowClass} />
           </div>
         </header>
-        {/*  || */}
+
         {this.props.loading || this.state.loading ?
           <div className="movies">
             <img src={loader} width="200px" alt="loading" className="loader" />
@@ -157,7 +157,7 @@ class App extends React.Component {
         !this.props.films.length &&
           'No films available'}
 
-        {!this.state.person.name &&
+        {!this.props.person && 
           <div className="welcome">
             <div className="welcome-inner">
               <h1>Welcome!</h1>
@@ -177,16 +177,16 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('MSTP', state);
+  // console.log('MSTP', state);
   return {
-    loading: state.simpleReducer.loading,
-    person: state.simpleReducer.person,
-    films: state.simpleReducer.films
+    loading: state.personReducer.loading,
+    person: state.personReducer.person,
+    films: state.personReducer.films
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators( { simpleAction, getPerson }, dispatch )
+  return bindActionCreators( { getPerson }, dispatch )
 }
 
 
