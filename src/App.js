@@ -127,10 +127,10 @@ class App extends React.Component {
           </div>
         </header>
         {/*  || */}
-        {this.props.loading || this.state.loading &&
+        {this.props.loading || this.state.loading ?
           <div className="movies">
             <img src={loader} width="200px" alt="loading" className="loader" />
-          </div>
+          </div> : null
         }
 
         {this.state.person.name && !this.state.loading &&
@@ -142,7 +142,9 @@ class App extends React.Component {
           </div>
         } */}
         {this.props.films && 
-          this.renderFilms(this.props.films)
+          <div className="movies">
+            {this.renderFilms(this.props.films)}
+          </div>
         }
 
         {/* {this.state.person.name && !this.state.loading && !this.state.films.length &&

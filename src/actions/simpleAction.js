@@ -5,41 +5,41 @@ export const simpleAction = () => dispatch => {
 	})
 }
 
-export const getPerson = person => dispatch => {
-	
-	dispatch(getPersonStarted())
-	
-	return fetch(person.url, {
-		method: 'GET',
-	})
-	.then(res => res.json())
-	.then(data => {
-		console.log('>>>>>>>>getPersonSuccess', data.films);
-			dispatch(getFilms(data))
+export const getPerson = person => {
+	return dispatch => {
+		dispatch(getPersonStarted());
+		
+		return fetch(person.url, {
+			method: 'GET',
 		})
-	// 	.catch(err => ({
-	// 		dispatch(getPersonFailure(err.message))
-	// 	})	
+		.then(res => res.json())
+		.then(data => {
+			console.log('>>>>>>>>getPersonSuccess', data.films);
+				dispatch(getFilms(data))
+			})
+		.catch(err => console.log(err))	
+	} 
 }
 
-export const getFilms = data => dispatch => {
+export const getFilms = data => {
+	return dispatch => {
+		let newFilms = []
+		if (data.films) {
+			data.films.map(async f => {
+				const res = await fetch(f);
+				const info = await res.json();
+				return newFilms.push(info);
+			})
+			console.log('!!!!! getFilms', newFilms);
+		}
 	
-	let newFilms = []
-	if (data.films) {
-		data.films.map(f => {
-			return fetch(f)
-			.then(res => res.json())
-			.then(info => newFilms.push(info))
+		dispatch({
+			type: 'GET_FILMS',
+			payload: newFilms
 		})
-		console.log('!!!!! getFilms', newFilms);
-	}
-
-	dispatch({
-		type: 'GET_FILMS',
-		payload: newFilms
-	})
-
-	dispatch(getPersonSuccess(data))
+	
+		dispatch(getPersonSuccess(data))
+	} 
 }
 
 export const getPersonStarted = () => dispatch => {
