@@ -84,7 +84,9 @@ class App extends React.Component {
             row={this.state.row}
             key={f.episode_id} />
         })
-        : "No films listed"
+        : <span style={{ "margin": "20px auto" }}>
+            No films listed
+          </span>
     return newFilms
   }
 
@@ -107,7 +109,7 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log('state', this.state);
+    console.log('state', this.state);
     console.log('props', this.props);
 
     // const { person } = this.props.simpleReducer
@@ -147,8 +149,13 @@ class App extends React.Component {
           </div>
         }
 
-        {/* {this.state.person.name && !this.state.loading && !this.state.films.length &&
-          'No films available'} */}
+        {/* {this.props.person && this.props.person.name && !this.props.loading  */}
+        {!this.props.loading && 
+        this.props.person && 
+        this.props.person.name && 
+        this.props.films && 
+        !this.props.films.length &&
+          'No films available'}
 
         {!this.state.person.name &&
           <div className="welcome">
