@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import { simpleAction } from './actions/simpleAction'
 
-import './App.css';
+import './css/App.css';
 
 
 class App extends React.Component {
