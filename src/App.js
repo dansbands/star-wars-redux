@@ -73,7 +73,7 @@ class App extends React.Component {
 
   render() {
     // console.log('state', this.state);
-    // console.log('props', this.props);
+    console.log('props', this.props);
 
     let rowClass = this.state.row ? "active" : "inactive"
     let gridClass = this.state.row ? "inactive" : "active"
@@ -101,17 +101,18 @@ class App extends React.Component {
           <h3 className="subheader-caption">Films that {this.state.person} appears in:</h3>
         }
 
-        {this.props.films && 
+        {this.props.loading === false && 
+        this.props.films && 
+        !!this.props.films.length && 
           <div className="movies">
             {this.renderFilms(this.props.films)}
           </div>
         }
 
-        {!this.props.loading && 
-        this.props.person && 
-        this.props.person.name && 
+        {this.props.loading === false && 
+        this.state.loading === false && 
         this.props.films && 
-        !this.props.films.length &&
+        this.props.films.length === 0 &&
           'No films available'}
 
         {!this.props.person && 
