@@ -1,7 +1,7 @@
 export const getPerson = person => {
 	return dispatch => {
 		dispatch(getPersonStarted());
-		
+
 		return fetch(person.url, {
 			method: 'GET',
 		})
@@ -9,11 +9,7 @@ export const getPerson = person => {
 		.then(data => {
 			dispatch(getFilms(data))
 		})
-		// .catch(err => {
-		// 	getPersonFailure(err)
-		// 	console.log(err)
-		// })	
-	} 
+	}
 }
 
 export const getFilms = data => {
@@ -26,17 +22,17 @@ export const getFilms = data => {
 				return newFilms.push(info);
 			})
 		}
-		
+
 		dispatch({
 			type: 'GET_FILMS',
 			payload: newFilms
 		})
-		
+
 		dispatch(getPersonSuccess(data))
-	} 
+	}
 }
 
-export const getPersonStarted = () => dispatch => {	
+export const getPersonStarted = () => dispatch => {
 	dispatch({
 		type: 'GET_PERSON_STARTED'
 	})
@@ -48,11 +44,3 @@ export const getPersonSuccess = (data) => dispatch => {
 		payload: data
 	})
 }
-
-// export const getPersonFailure = err => dispatch => {
-// 	console.log('getPersonFailure');
-// 	dispatch({
-// 		type: 'GET_PERSON_FAILURE',
-// 		payload: err
-// 	})
-// }
