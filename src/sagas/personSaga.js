@@ -23,6 +23,8 @@ function* getFilms(action) {
     let newFilms = [];
     if (action.payload.films) {
       action.payload.films.map(f => {
+        f = f.replace("http", "https")
+        console.log({f});
         return fetch(f).then(res =>
           res.json().then(data => newFilms.push(data))
         );
