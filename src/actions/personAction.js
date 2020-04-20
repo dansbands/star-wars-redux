@@ -10,6 +10,7 @@ export function getPerson(data) {
 
 export function getPersonSuccess(payload) {
 	console.log('getPersonSuccess', payload);
+	getFilms(payload)
 	return({
 		type: GET_PERSON_SUCCESS,
 		payload
@@ -24,10 +25,10 @@ export function getPersonFailure(errors) {
 }
 
 export function getFilms(data) {
-	console.log('getFilms', data);
+	// console.log('getFilms', data.films);
 	return {
 		type: GET_FILMS_START,
-		data
+		data: data.films
 	}
 }
 

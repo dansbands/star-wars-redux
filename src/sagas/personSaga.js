@@ -1,36 +1,50 @@
-import { put, takeEvery } from 'redux-saga/effects';
+// export function* helloSaga() {
+//   console.log('Hello Sagas');
+// }
 
-import {getPersonSuccess, getPersonFailure, getFilmsSuccess, getFilmsFailure  } from '../actions/personAction'
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 
-import {GET_PERSON_START, GET_FILMS_START } from '../constants'
+import {
+  getPersonSuccess,
+  getPersonFailure,
+  getFilmsSuccess,
+  getFilmsFailure
+} from "../actions/personAction";
 
+import { GET_PERSON_START, GET_FILMS_START } from "../constants";
 
 function* getPerson(action) {
-  console.log('getPersonSaga', action);
+  console.log("getPersonSaga", action);
   try {
-    const payload = yield fetch(action.data.url)
-    console.log({payload});
-    yield put(getPersonSuccess(payload))
+    const payload = yield fetch(action.data.url).then(res => res.json());
+
+    // console.log({ payload });
+    yield getFilms({ type: GET_FILMS_START, payload });
+    yield put(getPersonSuccess(payload));
   } catch (error) {
-    yield put(getPersonFailure(error))
+    yield put(getPersonFailure(error));
   }
 }
 
 function* getFilms(action) {
-  console.log('getFilmsSaga', action);
+  console.log("getFilmsSaga", action);
   try {
-    const payload = yield fetch(action.data.url)
-    console.log({payload});
-    yield put(getFilmsSuccess(payload))
+    let newFilms = [];
+    if (action.payload.films) {
+      action.payload.films.map(f => {
+        return fetch(f).then(res =>
+          res.json().then(data => newFilms.push(data))
+        );
+      });
+    }
+    console.log({ newFilms });
+    yield put(getFilmsSuccess(newFilms));
   } catch (error) {
-    yield put(getFilmsFailure(error))
+    yield put(getFilmsFailure(error));
   }
 }
 
 export default function* getPersonSaga() {
-  console.log('saga');
-  yield [
-    takeEvery(GET_PERSON_START, getPerson),
-    takeEvery(GET_FILMS_START, getFilms),
-  ]
+  yield takeLatest(GET_PERSON_START, getPerson);
+  yield takeLatest(GET_FILMS_START, getFilms);
 }

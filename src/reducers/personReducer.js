@@ -17,13 +17,13 @@ export default (state = { loading: false, person: false }, action) => {
     case GET_PERSON_SUCCESS:
       newState = {
         ...state,
-        loading: false,
         person: action.payload
       };
       return newState;
     case GET_FILMS_SUCCESS:
       newState = {
         ...state,
+        loading: false,
         films: action.payload
       };
       return newState;
