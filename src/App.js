@@ -13,6 +13,7 @@ import FormatListBulletedIcon from 'mdi-react/FormatListBulletedIcon';
 import loader from './img/bb8.gif'
 import logo2 from './img/logo2.jpg'
 
+
 class App extends React.Component {
   state = {
     person: '',

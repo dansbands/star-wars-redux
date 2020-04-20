@@ -1,46 +1,47 @@
-export const getPerson = person => {
-	return dispatch => {
-		dispatch(getPersonStarted());
+import { GET_PERSON_START, GET_PERSON_SUCCESS, GET_PERSON_FAILURE, GET_FILMS_START, GET_FILMS_SUCCESS, GET_FILMS_FAILURE} from '../constants'
 
-		return fetch(person.url, {
-			method: 'GET',
-		})
-		.then(res => res.json())
-		.then(data => {
-			dispatch(getFilms(data))
-		})
+export function getPerson(data) {
+	console.log('getPerson', data);
+	return {
+		type: GET_PERSON_START,
+		data
 	}
 }
 
-export const getFilms = data => {
-	return dispatch => {
-		let newFilms = []
-		if (data.films) {
-			data.films.map(async f => {
-				const res = await fetch(f);
-				const info = await res.json();
-				return newFilms.push(info);
-			})
-		}
-
-		dispatch({
-			type: 'GET_FILMS',
-			payload: newFilms
-		})
-
-		dispatch(getPersonSuccess(data))
-	}
-}
-
-export const getPersonStarted = () => dispatch => {
-	dispatch({
-		type: 'GET_PERSON_STARTED'
+export function getPersonSuccess(payload) {
+	console.log('getPersonSuccess', payload);
+	return({
+		type: GET_PERSON_SUCCESS,
+		payload
 	})
 }
 
-export const getPersonSuccess = (data) => dispatch => {
-	dispatch({
-		type: 'GET_PERSON_SUCCESS',
-		payload: data
+export function getPersonFailure(errors) {
+	return({
+		type: GET_PERSON_FAILURE,
+		payload: errors
+	})
+}
+
+export function getFilms(data) {
+	console.log('getFilms', data);
+	return {
+		type: GET_FILMS_START,
+		data
+	}
+}
+
+export function getFilmsSuccess(payload) {
+	console.log('getFilmsSuccess', payload);
+	return({
+		type: GET_FILMS_SUCCESS,
+		payload
+	})
+}
+
+export function getFilmsFailure(errors) {
+	return({
+		type: GET_FILMS_FAILURE,
+		payload: errors
 	})
 }
