@@ -1,3 +1,6 @@
+// Pre-redux
+
+
 export const getPerson = (person) => {
   // console.log('gettingPerson', person);
   return fetch(person.url, {

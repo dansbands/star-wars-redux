@@ -20,10 +20,6 @@ const store = createStore(
 
 sagaMiddleware.run(getPersonSaga)
 
-// const action = type => store.dispatch({type})
-
-
-
 ReactDOM.render(
     <Provider store={store}>
         <App />

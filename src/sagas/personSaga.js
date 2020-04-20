@@ -1,9 +1,4 @@
-// export function* helloSaga() {
-//   console.log('Hello Sagas');
-// }
-
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
-
 import {
   getPersonSuccess,
   getPersonFailure,
@@ -14,11 +9,8 @@ import {
 import { GET_PERSON_START, GET_FILMS_START } from "../constants";
 
 function* getPerson(action) {
-  console.log("getPersonSaga", action);
   try {
     const payload = yield fetch(action.data.url).then(res => res.json());
-
-    // console.log({ payload });
     yield getFilms({ type: GET_FILMS_START, payload });
     yield put(getPersonSuccess(payload));
   } catch (error) {
@@ -27,7 +19,6 @@ function* getPerson(action) {
 }
 
 function* getFilms(action) {
-  console.log("getFilmsSaga", action);
   try {
     let newFilms = [];
     if (action.payload.films) {
@@ -37,7 +28,6 @@ function* getFilms(action) {
         );
       });
     }
-    console.log({ newFilms });
     yield put(getFilmsSuccess(newFilms));
   } catch (error) {
     yield put(getFilmsFailure(error));
